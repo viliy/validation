@@ -25,7 +25,7 @@ class ValidationMiddleware extends Middleware
     public function handle(ServerRequestInterface $request, DelegateInterface $next)
     {
         try {
-            if ($validator = config()->get('validation.'.route()->getActiveRoute()->getName(), false)) {
+            if ($validator = config()->get('validation.'.route()->getActiveRoute()->getPath(), false)) {
                 $reflection = new \ReflectionClass($validator);
                 if ($reflection->isSubclassOf(RequestValidatorInterface::class)) {
                     throw new \Exception(sprintf('%s is not instance of %s', $reflection->getName(), RequestValidatorInterface::class));
